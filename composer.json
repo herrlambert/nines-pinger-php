@@ -1,0 +1,12 @@
+{
+    "name": "oris/nines-pinger-proto",
+    "description": "Prototype of nines pinger written in PHP",
+    "type": "project",
+    "autoload": {
+        "psr-4": {"ninespinger\\": "src/"}
+    },
+    "require": {
+        "guzzlehttp/guzzle": "6.3.3"
+    }
+}
+
