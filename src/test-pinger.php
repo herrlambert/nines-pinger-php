@@ -1,5 +1,6 @@
 <?php
 require "../vendor/autoload.php";
+require('../config/config.php');
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
@@ -11,7 +12,7 @@ use ninespinger\lib\Database;
  * Create a database connection
  */
 $database = Database::getInstance();
-$database->setDbAllParams('nines', '127.0.0.1', '3306', 'uebenphp', 'phpdyn@m!t3', 'utf8');
+$database->setDbAllParams(DB_NAME, DB_HOST, DB_PORT, DB_USER, DB_PASS, 'utf8');
 $database->createDbConnection();
 $dbConn = $database->getDbConnection();
 
