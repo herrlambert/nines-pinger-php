@@ -1,44 +1,61 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mattlam
- * Date: 12/13/2018
- * Time: 10:40 AM
- */
 require "../vendor/autoload.php";
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Exception\GuzzleException;
-
-$urls = [
-    ['id' => 1, 'url' => 'http://staff.washington.edu/mattlam'],
-    ['id' => 2, 'url' => 'http://www.washington.edu/'],
-    ['id' => 3, 'url' => 'https://www.washington.edu/research/'],
-    ['id' => 4, 'url' => 'https://www.law.uw.edu/'],
-    ['id' => 5, 'url' => 'https://www.washington.edu/research/tools/'],
-    ['id' => 6, 'url' => 'https://www.washington.edu/research/learning/online/'],
-    ['id' => 7, 'url' => 'http://www.lib.washington.edu/'],
-    ['id' => 8, 'url' => 'https://foster.uw.edu/'],
-    ['id' => 9, 'url' => 'https://www.engr.washington.edu/'],
-    ['id' => 10, 'url' => 'http://be.washington.edu/'],
-    ['id' => 11, 'url' => 'https://www.health-informatics.uw.edu/'],
-    ['id' => 12, 'url' => 'https://artsci.washington.edu/'],
-    ['id' => 13, 'url' => 'https://www.uwmedicine.org/'],
-    ['id' => 14, 'url' => 'https://globalhealth.washington.edu/'],
-    ['id' => 15, 'url' => 'https://www.uwb.edu/'],
-    ['id' => 16, 'url' => 'http://www.tacoma.uw.edu/'],
-    ['id' => 17, 'url' => 'https://environment.uw.edu/']
-];
-
-$requestResultArray = doRequests($urls);
-print_r($requestResultArray);
+use ninespinger\lib\Database;
 
 /**
- * @param array $urls
+ * Create a database connection
  */
-function doRequests(Array $urlArrays = [])
+$database = Database::getInstance();
+$database->setDbAllParams('nines', '127.0.0.1', '3306', 'uebenphp', 'phpdyn@m!t3', 'utf8');
+$database->createDbConnection();
+$dbConn = $database->getDbConnection();
+
+/**
+ * Main program execution - ping urls and output results
+ */
+$urlsArray = getUrls($dbConn);
+$pingResultsArray = pingUrls($urlsArray);
+print_r($pingResultsArray);
+
+
+function getUrls($dbConn)
+{
+    $urls = array();
+
+    try {
+
+        $query = "
+            SELECT u.id, u.url
+            FROM urls u
+            JOIN urlgroups ug
+            ON ug.id = u.urlgroup_id
+            WHERE ug.id = 1";
+
+        $stmt = $dbConn->prepare( $query );
+
+        $result = $stmt->execute();
+
+        // Try to fetch the results
+        if ( $result ) {
+            $stmt->setFetchMode( \PDO::FETCH_ASSOC );
+            $urls = $stmt->fetchAll();
+        }
+
+    } catch(Exception $e) {
+
+        // Catch generic Exceptions
+        print_r($e);
+    }
+
+    return $urls;
+}
+
+function pingUrls(Array $urlArrays = [])
 {
     $requestResultArray = [];
 

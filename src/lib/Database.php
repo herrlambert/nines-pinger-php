@@ -1,5 +1,5 @@
 <?php
-namespace zweig\lib;
+namespace ninespinger\lib;
 
 /**
  * Class Database
@@ -11,13 +11,13 @@ namespace zweig\lib;
 class Database
 {
     // Store a single instance of this class
-    private static $_instance = NULL;
+    private static $instance = NULL;
 
     // Array for storing database connection parameters
-    private $_dbConnectionParms = array();
+    private $dbConnectionParms = array();
 
     // Store database connection
-    private $_connection = NULL;
+    private $connection = NULL;
 
     // Declare empty private methods to prevent users from trying to do anything
     // via these method calls
@@ -27,46 +27,46 @@ class Database
     // Method for returning instance
     public static function getInstance()
     {
-        if (self::$_instance == NULL) {
-            self::$_instance = new Database();
+        if (self::$instance == NULL) {
+            self::$instance = new Database();
         }
-        return self::$_instance;
+        return self::$instance;
     }
 
     // Set database connection parameter: name
     public function setDbName($dbName)
     {
-        $this->_dbConnectionParms['dbName'] = $dbName;
+        $this->dbConnectionParms['dbName'] = $dbName;
     }
 
     // Set database connection parameter: host
     public function setDbHost($dbHost)
     {
-        $this->_dbConnectionParms['dbHost'] = $dbHost;
+        $this->dbConnectionParms['dbHost'] = $dbHost;
     }
 
     // Set the database connection parameter: port
     public function setDbPort($dbPort)
     {
-        $this->_dbConnectionParms['dbPort'] = $dbPort;
+        $this->dbConnectionParms['dbPort'] = $dbPort;
     }
 
     // Set database connection parameter: user
     public function setDbUser($dbUser)
     {
-        $this->_dbConnectionParms['dbUser'] = $dbUser;
+        $this->dbConnectionParms['dbUser'] = $dbUser;
     }
 
     // Set database connection parameter: user password
     public function setDbPass($dbPass)
     {
-        $this->_dbConnectionParms['dbPass'] = $dbPass;
+        $this->dbConnectionParms['dbPass'] = $dbPass;
     }
 
     // Set database connection parameter: character set
     public function setDbCharSet($dbCharSet)
     {
-        $this->_dbConnectionParms['dbCharSet'] = $dbCharSet;
+        $this->dbConnectionParms['dbCharSet'] = $dbCharSet;
     }
 
     // Set database connection parameters: all
@@ -82,7 +82,7 @@ class Database
     // Get database all connection parameters (returns array)
     public function getDbAllParams()
     {
-        return $this->_dbConnectionParms;
+        return $this->dbConnectionParms;
     }
 
     // Method to create a database connection
@@ -91,30 +91,26 @@ class Database
         // Create database connection using PDO
         try {
             // Add the database name and host to connection parameters
-            $dbNamePortHost =  "mysql:dbname={$this->_dbConnectionParms['dbName']};";
-            $dbNamePortHost .= "host={$this->_dbConnectionParms['dbHost']};";
+            $dbNamePortHost =  "mysql:dbname={$this->dbConnectionParms['dbName']};";
+            $dbNamePortHost .= "host={$this->dbConnectionParms['dbHost']};";
 
             // If Port and Character Set have been specified, then add them too
-            if (isset($this->_dbConnectionParms['dbPort'])) {
-                $dbNamePortHost .= "port={$this->_dbConnectionParms['dbPort']};";
+            if (isset($this->dbConnectionParms['dbPort'])) {
+                $dbNamePortHost .= "port={$this->dbConnectionParms['dbPort']};";
             }
-            if (isset($this->_dbConnectionParms['dbCharSet'])) {
+            if (isset($this->dbConnectionParms['dbCharSet'])) {
                 $dbNamePortHost .= "charset=utf8";
             }
 
             // Create the PDO connection object
-            $this->_connection = new \PDO(
+            $this->connection = new \PDO(
                 $dbNamePortHost,
-                $this->_dbConnectionParms['dbUser'],
-                $this->_dbConnectionParms['dbPass']);
+                $this->dbConnectionParms['dbUser'],
+                $this->dbConnectionParms['dbPass']);
 
         } catch(PDOException $e) {
 
             // Report database connection error
-            $pageTitle = 'Error!';
-            include('includes/header.php');
-            include('includes/error.php');
-            include('includes/footer.php');
             exit();
 
         }
@@ -124,17 +120,17 @@ class Database
     public function getDbConnection()
     {
         // Return the connection if it has been created
-        if (isset($this->_connection)) {
+        if (isset($this->connection)) {
 
-            return $this->_connection;
+            return $this->connection;
 
         // Attempt to create the connection and return it if connection has not yet been created
         } else {
 
             $this->createDbConnection();
 
-            if (isset($this->_connection)) {
-                return $this->_connection;
+            if (isset($this->connection)) {
+                return $this->connection;
             } else {
                 return NULL;
             }

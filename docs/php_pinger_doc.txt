@@ -21,6 +21,12 @@ urls
 ==================================================
 	id							int (primary key)
 	url							varchar(100)
+	url_name                    varchar(100)
+	urlgroup_id                 int
+	last_ping_time	    		datetime
+    current_total_requests		int
+    current_total_errors		int
+    availability_rating			int
 --------------------------------------------------
 
 urlgroups
@@ -35,19 +41,6 @@ urlgroups
 	current_total_errors		int
 	availability_rating			int
 --------------------------------------------------
-
-url_urlgroup
-==================================================
-	id							int (primary key)
-	url_id						int
-	urlgroup_id					int
-	url_name_in_group			varchar(100)
-	url_last_ping_time			datetime
-	current_total_requests		int
-	current_total_errors		int
-	availability_rating			int
---------------------------------------------------
-	Unique Index: url-urlgroup on url_id and urlgroup_id
 
 head_request_log
 ==================================================
