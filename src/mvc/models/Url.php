@@ -26,7 +26,7 @@ class Url
         try {
 
             $query = "
-            SELECT ug.id, ug.name, ug.ping_frequency, ug.last_ping_time, ug.metrics_from_date, ug.metrics_to_date
+            SELECT ug.id, ug.name, ug.ping_frequency, ug.last_ping_time, ug.metrics_from_date, ug.metrics_to_date,
                    ug.current_total_requests, ug.current_total_errors, ug.availability_rating
             FROM urlgroups ug";
 
@@ -52,7 +52,7 @@ class Url
      * @param $urlGroupId
      * @return array
      */
-    public function getUrlsByUrlGroup($urlGroupId)
+    public function getUrlsByUrlGroupId($urlGroupId)
     {
         $urls = array();
 

@@ -22,9 +22,9 @@ class Url
         return $this->urlModel->getUrlGroups();
     }
 
-    public function getUrlsByUrlGroup($urlGroupId)
+    public function getUrlsByUrlGroupId($urlGroupId)
     {
-        return $this->urlModel->getUrlsByUrlGroup($urlGroupId);
+        return $this->urlModel->getUrlsByUrlGroupId($urlGroupId);
     }
 }
 
