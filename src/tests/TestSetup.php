@@ -2,9 +2,9 @@
 /**
  * Setup Object Provides Database Connection and User objects for all tests
  */
-namespace ninespinger\tests;
+namespace nines\tests;
 
-use ninespinger\lib\Database;
+use nines\lib\Database;
 
 require_once('test-config.php');
 

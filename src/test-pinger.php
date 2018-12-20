@@ -3,9 +3,9 @@ require "../vendor/autoload.php";
 require('../config/config.php');
 
 
-use ninespinger\lib\Database;
-use ninespinger\lib\Pinger;
-use ninespinger\mvc\controllers;
+use nines\lib\Database;
+use nines\lib\Pinger;
+use nines\mvc\controllers;
 
 /**
  * Create a database connection

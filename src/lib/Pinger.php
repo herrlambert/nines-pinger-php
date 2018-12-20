@@ -1,5 +1,5 @@
 <?php
-namespace ninespinger\lib;
+namespace nines\lib;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;

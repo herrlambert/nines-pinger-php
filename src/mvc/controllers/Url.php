@@ -1,7 +1,7 @@
 <?php
-namespace ninespinger\mvc\controllers;
+namespace nines\mvc\controllers;
 
-use ninespinger\mvc\models;
+use nines\mvc\models;
 
 
 class Url

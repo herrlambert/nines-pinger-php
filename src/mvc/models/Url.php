@@ -1,5 +1,5 @@
 <?php
-namespace ninespinger\mvc\models;
+namespace nines\mvc\models;
 
 
 class Url

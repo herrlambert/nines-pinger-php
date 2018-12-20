@@ -1,5 +1,5 @@
 <?php
-namespace ninespinger\lib;
+namespace nines\lib;
 
 /**
  * Class Database

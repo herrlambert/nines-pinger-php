@@ -1,9 +1,9 @@
 <?php
-namespace ninespinger\tests\mvc\models;
+namespace nines\tests\mvc\models;
 
 use PHPUnit\Framework\TestCase;
-use ninespinger\mvc\models\Url;
-use ninespinger\tests\TestSetup;
+use nines\mvc\models\Url;
+use nines\tests\TestSetup;
 
 class UrlTest extends TestCase
 {
